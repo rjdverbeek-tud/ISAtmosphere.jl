@@ -7,9 +7,7 @@ Source: EUROCONTROL BADA 4 User Manual Chapter 2.2 Atmosphere Model
 """
 module ISAtmosphere
 
-
-
-export T, T₀, p, p₀, ρ, ρ₀, a, a₀, g₀, κ,
+export T, T₀, p, p₀, ρ, ρ₀, a, a₀, g₀, κ, conditions, AtmosConditions,
 Vcas2Vtas, Vtas2Vcas, M2Vtas, Vtas2M, Hp_trans, M2Vcas, Vcas2M
 
 "EUROCONTROL BADA 4 User Manual Section 2.2.1/2.2.2"
@@ -34,6 +32,27 @@ const g₀ = 9.80665
 const βT∇ = -0.0065
 "Geopotential pressure altitude [m] of Tropopause"
 const Hp_trop = 11000.0
+
+struct AtmosConditions
+    T_K::Float64
+    p_Pa::Float64
+    ρ_kg_m³::Float64
+    a_m_s::Float64
+end
+
+"""
+conditions(Hp_m::Float64, ΔT_K::Float64 = 0.0)
+
+Create struct with the atmospheric conditions T, p, and ρ, and the speed of
+sound a at a given altitude [m] and ΔT [K] temperature offset.
+"""
+function conditions(Hp_m::Float64, ΔT_K::Float64 = 0.0)
+    T_K = T(Hp_m, ΔT_K)
+    p_Pa = p(Hp_m, ΔT_K)
+    ρ_kg_m³ = ρ(p_Pa, T_K)
+    a_m_s = a(T_K)
+    return AtmosConditions(T_K, p_Pa, ρ_kg_m³, a_m_s)
+end
 
 """
 T(Hp::Float64, ΔT::Float64 = 0.0)

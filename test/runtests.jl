@@ -30,4 +30,10 @@ using Test
     @test ISAtmosphere.θ(288) ≈ 0.999479 atol = 0.001
     @test ISAtmosphere.δ(101325) ≈ 1.000 atol = 0.001
     @test ISAtmosphere.σ(1) ≈ 0.816327 atol = 0.001
+
+    cond = conditions(9000.0, -1.5)
+    @test cond.T_K ≈ 228.15 atol = 0.01
+    @test cond.p_Pa ≈ 30742.5 atol = 0.1
+    @test cond.ρ_kg_m³ ≈ 0.469414 atol = 0.0001
+    @test cond.a_m_s ≈ 302.8 atol = 0.1
 end

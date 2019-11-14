@@ -21,6 +21,7 @@ Functions
 * M2Vcas  Calibrated airspeed Vcas [m/s] as a function of the Mach number
 * Vtas2M  Mach as a function of the True airspeed Vtas [m/s]
 * Hp_trans  Transition altitude [m]
+* conditions  return T, p, ρ and a in struct AtmosConditions
 
 * θ   temperature ratio
 * δ   pressure ratio
@@ -37,5 +38,8 @@ Constants
 * g₀  Graviation acceleration [m/s²]
 * βT∇ ISA temperature gradient [K/m] with altitude below the tropopause
 * Hp_trop Geopotential pressure altitude [m] of Tropopause
+
+Type
+* AtmosConditions: T_K, p_Pa, ρ_kg_m³, a_m_s
 
 Source: EUROCONTROL BADA 4 User Manual Chapter 2.2 Atmosphere Model
