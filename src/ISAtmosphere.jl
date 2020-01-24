@@ -33,7 +33,7 @@ const βT∇ = -0.0065
 "Geopotential pressure altitude [m] of Tropopause"
 const Hp_trop = 11000.0
 
-struct AtmosConditions
+struct AtmosConditionstest 
     T_K::Float64
     p_Pa::Float64
     ρ_kg_m³::Float64
