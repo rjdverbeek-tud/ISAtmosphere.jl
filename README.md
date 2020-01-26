@@ -10,34 +10,30 @@ International Standard Atmospheric (ISA) model
 Only metric units are used.
 
 Functions
-* T   Atmospheric temperature [K]
-* p   Air pressure [Pa]
-* ρ   Air density [kg/m³]
-* a   Speed of sound [m/s]
+* T_K     Atmospheric temperature [K]
+* p_Pa    Air pressure [Pa]
+* ρ_kg_m³ Air density [kg/m³]
+* a_m_s   Speed of sound [m/s]
 * Vcas2Vtas True airspeed Vtas [m/s] as a function of the calibrated airspeed Vcas [m/s]
 * Vtas2Vcas Calibrated airspeed Vcas [m/s] as a function of the True airspeed Vtas [m/s]
 * M2Vtas  True airspeed Vtas [m/s] as a function of the Mach number
 * Vtas2M  Mach as a function of the True airspeed Vtas [m/s]
 * M2Vcas  Calibrated airspeed Vcas [m/s] as a function of the Mach number
 * Vtas2M  Mach as a function of the True airspeed Vtas [m/s]
-* Hp_trans  Transition altitude [m]
-* conditions  return T, p, ρ and a in struct AtmosConditions
+* Hp_trans_m Transition altitude [m]
+* conditions return T_K, p_Pa, ρ_kg_m³ and a_m_s in struct AtmosConditions
 
 * θ   temperature ratio
 * δ   pressure ratio
 * σ   density ratio
 
 Constants
-* T₀  Standard atmospheric temperature [K] at Mean Sea Level (MSL)
-* p₀  Standard atmospheric pressure [Pa] at Mean Sea Level (MSL)
-* ρ₀  Standard atmospheric density [kg/m³] at Mean Sea Level (MSL)
-* a₀  Speed of sound [m/s] at Mean Sea Level (MSL)
-* κ   Adiabatic index of air []
-* μ   constant used for Vtas<->Vcas conversion
-* R   Real gas constant for air [M²/(Ks²)]
-* g₀  Graviation acceleration [m/s²]
-* βT∇ ISA temperature gradient [K/m] with altitude below the tropopause
-* Hp_trop Geopotential pressure altitude [m] of Tropopause
+* T₀_K    Standard atmospheric temperature [K] at Mean Sea Level (MSL)
+* p₀_Pa   Standard atmospheric pressure [Pa] at Mean Sea Level (MSL)
+* ρ₀_kg_m³  Standard atmospheric density [kg/m³] at Mean Sea Level (MSL)
+* a₀_m_s  Speed of sound [m/s] at Mean Sea Level (MSL)
+* g₀_m_s² Graviation acceleration [m/s²]
+* Hp_trop_m Geopotential pressure altitude [m] of Tropopause
 
 Type
 * AtmosConditions: T_K, p_Pa, ρ_kg_m³, a_m_s
