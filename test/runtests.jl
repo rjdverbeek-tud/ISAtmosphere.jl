@@ -31,9 +31,24 @@ using Test
     @test ISAtmosphere.δ(101325) ≈ 1.000 atol = 0.001
     @test ISAtmosphere.σ(1) ≈ 0.816327 atol = 0.001
 
-    cond = conditions(9000.0, -1.5)
+    cond = ISAtmosphere.conditions(9000.0, -1.5)
     @test cond.T_K ≈ 228.15 atol = 0.01
     @test cond.p_Pa ≈ 30742.5 atol = 0.1
     @test cond.ρ_kg_m³ ≈ 0.469414 atol = 0.0001
     @test cond.a_m_s ≈ 302.8 atol = 0.1
+
+    cond2 = conditions(9000.0, 0.0)
+    @test cond2.T_K ≈ 229.65 atol = 0.01
+    @test cond2.p_Pa ≈ 30742.5 atol = 0.1
+    @test cond2.ρ_kg_m³ ≈ 0.466348 atol = 0.0001
+    @test cond2.a_m_s ≈ 303.793 atol = 0.1
+
+    @test Vcas2Vtas(128.611, cond2) ≈ 201.01 atol = 0.1
+    @test Vtas2Vcas(201.01, cond2) ≈ 128.611 atol = 0.1
+    @test Vtas2Vcas(201, cond2) ≈ 128.611 atol = 0.1
+    @test Vtas2M(201.01, cond2) ≈ 0.661667 atol = 0.001
+    @test Vtas2M(201, cond2) ≈ 0.661667 atol = 0.001
+    @test M2Vtas(0.661667, cond2) ≈ 201.01 atol = 0.1
+    @test Vcas2M(128.611, cond2) ≈ 0.661667 atol = 0.001
+    @test M2Vcas(0.661667, cond2) ≈ 128.611 atol = 0.1
 end

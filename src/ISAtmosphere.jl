@@ -55,7 +55,8 @@ function T_K(Hp_m::Float64, ΔT_K::Float64 = 0.0)
     end
 end
 
-T_K(Hp_m::Real, ΔT_K::Real = zero(Real)) = T_K(convert(Float64, Hp_m), convert(Float64, ΔT_K))
+T_K(Hp_m::Real, ΔT_K::Real = zero(Real)) = T_K(convert(Float64, Hp_m),
+convert(Float64, ΔT_K))
 
 """
 p_Pa(Hp_m::Float64, ΔT_K::Float64 = 0.0)
@@ -112,6 +113,9 @@ end
 Vcas2Vtas(Vcas_m_s::Real, p_Pa::Real, T_K::Real) = Vcas2Vtas(convert(Float64, Vcas_m_s),
 convert(Float64, p_Pa), convert(Float64, T_K))
 
+Vcas2Vtas(Vcas_m_s::Real, cond::AtmosConditions) = Vcas2Vtas(Vcas_m_s,
+cond.p_Pa, cond.T_K)
+
 """
 Vtas2Vcas(Vtas_m_s::Float64, p_Pa::Float64, T_K::Float64)
 Calibrated airspeed Vcas_m_s [m/s] as a function of the True airspeed Vtas_m_s [m/s]
@@ -127,6 +131,9 @@ end
 Vtas2Vcas(Vtas_m_s::Real, p_Pa::Real, T_K::Real) = Vtas2Vcas(convert(Float64, Vtas_m_s),
 convert(Float64, p_Pa), convert(Float64, T_K))
 
+Vtas2Vcas(Vtas_m_s::Real, conditions::AtmosConditions) = Vtas2Vcas(Vtas_m_s,
+conditions.p_Pa, conditions.T_K)
+
 """
 M2Vtas(M::Float64, T_K::Float64)
 True airspeed Vtas_m_s [m/s] as a function of the Mach number
@@ -139,6 +146,11 @@ end
 
 M2Vtas(M::Real, T_K::Real) = M2Vtas(convert(Float64, M), convert(Float64, T_K))
 
+M2Vtas(M::Float64, conditions::AtmosConditions) = M * conditions.a_m_s
+
+M2Vtas(M::Real, conditions::AtmosConditions) = convert(Float64, M) *
+conditions.a_m_s
+
 """
 Vtas2M(Vtas_m_s::Float64, T_K::Float64)
 Mach as a function of the True airspeed Vtas_m_s [m/s]
@@ -149,7 +161,11 @@ function Vtas2M(Vtas_m_s::Float64, T_K::Float64)
     return Vtas_m_s/a_m_s(T_K)
 end
 
-Vtas2M(Vtas_m_s::Real, T_K::Real) = Vtas2M(convert(Float64, Vtas_m_s), convert(Float64, T_K))
+Vtas2M(Vtas_m_s::Real, T_K::Real) = Vtas2M(convert(Float64, Vtas_m_s),
+convert(Float64, T_K))
+
+Vtas2M(Vtas_m_s::Real, conditions::AtmosConditions) = convert(Float64, Vtas_m_s) /
+conditions.a_m_s
 
 """
 M2Vcas(M::Float64, p_Pa::Float64, T_K::Float64)
@@ -164,6 +180,9 @@ end
 M2Vcas(M::Real, p_Pa::Real, T_K::Real) = M2Vcas(convert(Float64, M),
 convert(Float64, p_Pa), convert(Float64, T_K))
 
+M2Vcas(M::Real, conditions::AtmosConditions) = M2Vcas(M, conditions.p_Pa,
+conditions.T_K)
+
 """
 Vtas2M(Vtas_m_s::Float64, T_K::Float64)
 Mach as a function of the True airspeed Vtas_m_s [m/s]
@@ -176,6 +195,9 @@ end
 
 Vcas2M(Vcas_m_s::Real, p_Pa::Real, T_K::Real) = Vcas2M(convert(Float64, Vcas_m_s),
 convert(Float64, p_Pa), convert(Float64, T_K))
+
+Vcas2M(Vcas_m_s::Real, conditions::AtmosConditions) = Vcas2M(Vcas_m_s,
+conditions.p_Pa, conditions.T_K)
 
 """
 Hp_trans_m(Vcas_m_s::Float64, M::Float64, ΔT_K::Float64 = 0.0)
@@ -230,7 +252,6 @@ function conditions(Hp_m::Float64, ΔT_K::Float64 = 0.0)
     return AtmosConditions(T, p, ρ, a)
 end
 
-#TODO We recalculate all items all the time. Is there a faster strategy?
 #TODO Interpolate Temperature/Pressure data grid
 
 end # module
