@@ -184,8 +184,8 @@ M2Vcas(M::Real, conditions::AtmosConditions) = M2Vcas(M, conditions.p_Pa,
 conditions.T_K)
 
 """
-Vtas2M(Vtas_m_s::Float64, T_K::Float64)
-Mach as a function of the True airspeed Vtas_m_s [m/s]
+Vcas2M(Vcas_m_s::Float64, T_K::Float64)
+Mach as a function of the calibrated airspeed Vcas_m_s [m/s]
 at pressure level p_Pa [Pa] and with temperature T_K [K]
 EUROCONTROL BADA 4 User Manual eq. 2.2-26 (reversed)
 """
