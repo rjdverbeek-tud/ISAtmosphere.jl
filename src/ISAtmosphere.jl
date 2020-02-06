@@ -9,7 +9,7 @@ module ISAtmosphere
 
 export T_K, T₀_K, p_Pa, p₀_Pa, ρ_kg_m³, ρ₀_kg_m³, a_m_s, a₀_m_s, g₀_m_s²,
 conditions, AtmosConditions, Vcas2Vtas, Vtas2Vcas, M2Vtas, Vtas2M, Hp_trans_m,
-M2Vcas, Vcas2M, Hp_trop_m
+M2Vcas, Vcas2M, Hp_trop_m, κ, R_M²_Ks², βT∇_K_m
 
 "EUROCONTROL BADA 4 User Manual Section 2.2.1/2.2.2"
 
