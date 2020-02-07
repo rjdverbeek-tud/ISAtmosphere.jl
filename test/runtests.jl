@@ -32,12 +32,14 @@ using Test
     @test ISAtmosphere.σ(1) ≈ 0.816327 atol = 0.001
 
     cond = ISAtmosphere.conditions(9000.0, -1.5)
+    @test cond.Hp_m ≈ 9000.0 atol = 0.1
     @test cond.T_K ≈ 228.15 atol = 0.01
     @test cond.p_Pa ≈ 30742.5 atol = 0.1
     @test cond.ρ_kg_m³ ≈ 0.469414 atol = 0.0001
     @test cond.a_m_s ≈ 302.8 atol = 0.1
 
     cond2 = conditions(9000.0, 0.0)
+    @test cond2.Hp_m ≈ 9000.0 atol = 0.1
     @test cond2.T_K ≈ 229.65 atol = 0.01
     @test cond2.p_Pa ≈ 30742.5 atol = 0.1
     @test cond2.ρ_kg_m³ ≈ 0.466348 atol = 0.0001

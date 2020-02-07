@@ -1,7 +1,7 @@
 name = "ISAtmosphere"
 uuid = "2079e98e-b9a5-4add-91d8-8d7b7bc8f821"
 authors = ["René Verbeek"]
-version = "0.2.2"
+version = "0.2.3"
 
 [compat]
 julia = "1.3"

@@ -35,6 +35,7 @@ const βT∇_K_m = -0.0065
 const Hp_trop_m = 11000.0
 
 struct AtmosConditions
+    Hp_m::Float64
     T_K::Float64
     p_Pa::Float64
     ρ_kg_m³::Float64
@@ -200,21 +201,20 @@ Vcas2M(Vcas_m_s::Real, conditions::AtmosConditions) = Vcas2M(Vcas_m_s,
 conditions.p_Pa, conditions.T_K)
 
 """
-Hp_trans_m(Vcas_m_s::Float64, M::Float64, ΔT_K::Float64 = 0.0)
+Hp_trans_m(Vcas_m_s::Float64, M::Float64)
 Transition altitude (also called crossover altitude) [m] between
 a given calibrated airspeed [m/s] and a Mach number M
-and with temperature offset ΔT_K [K]
 EUROCONTROL BADA 4 User Manual eq. 2.2-27/28/29
 """
-function Hp_trans_m(Vcas_m_s::Float64, M::Float64, ΔT_K::Float64 = 0.0)
+function Hp_trans_m(Vcas_m_s::Float64, M::Float64)
     δ_trans = ((1.0+(κ-1.0)/2.0*(Vcas_m_s/a₀_m_s)^2)
                 ^(1.0/μ)-1.0)/((1.0+(κ-1.0)/2.0*M^2)^(1.0/μ)-1.0)
     θ_trans = δ_trans^(-βT∇_K_m * R_M²_Ks² / g₀_m_s²)
     return T₀_K/βT∇_K_m*(θ_trans - 1.0)
 end
 
-Hp_trans_m(Vcas_m_s::Real, M::Real, ΔT_K::Real = zero(Real)) = Hp_trans_m(
-convert(Float64, Vcas_m_s), convert(Float64, M), convert(Float64, ΔT_K))
+Hp_trans_m(Vcas_m_s::Real, M::Real) = Hp_trans_m(convert(Float64, Vcas_m_s),
+convert(Float64, M))
 
 """
 θ(T_K::Float64)
@@ -242,14 +242,14 @@ EUROCONTROL BADA 4 User Manual eq. 2.2-32
 conditions(Hp_m::Float64, ΔT_K::Float64 = 0.0)
 
 Create struct with the atmospheric conditions T_K, p_Pa, and ρ_kg_m³, and the speed of
-sound a at a given altitude [m] and ΔT_K [K] temperature offset.
+sound a at a given altitude Hp_m [m] and ΔT_K [K] temperature offset.
 """
 function conditions(Hp_m::Float64, ΔT_K::Float64 = 0.0)
     T = T_K(Hp_m, ΔT_K)
     p = p_Pa(Hp_m, ΔT_K)
     ρ = ρ_kg_m³(p, T)
     a = a_m_s(T)
-    return AtmosConditions(T, p, ρ, a)
+    return AtmosConditions(Hp_m, T, p, ρ, a)
 end
 
 #TODO Interpolate Temperature/Pressure data grid
