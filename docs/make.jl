@@ -9,5 +9,5 @@ makedocs(
 )
 
 deploydocs(
-    repo = "rjdverbeek-tud.github.io/ISAtmosphere.jl",
+    repo = "github.com/rjdverbeek-tud/ISAtmosphere.jl.git",
 )
