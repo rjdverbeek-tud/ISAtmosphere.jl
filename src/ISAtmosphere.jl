@@ -51,7 +51,7 @@ const βT∇_K_m = -0.0065
 const Hp_trop_m = 11000.0
 
 """
-    AtmosConditions(Hp_m, T_K, p_Pa, ρ_kg_m³, a_m_s)
+    AtmosConditions(Hp_m, T_K, ΔT_K, p_Pa, ρ_kg_m³, a_m_s)
 
 Immutable STRUCT to keep a set of atmospheric conditions together. This struct
 can be used to also store an arbitrary set of atmospheric conditions.
@@ -60,6 +60,7 @@ The function `conditions` can be used to create the struct.
 struct AtmosConditions
     Hp_m::Float64
     T_K::Float64
+    ΔT_K::Float64
     p_Pa::Float64
     ρ_kg_m³::Float64
     a_m_s::Float64
@@ -321,7 +322,7 @@ function conditions(Hp_m::Float64, ΔT_K::Float64 = 0.0)
     p = p_Pa(Hp_m, ΔT_K)
     ρ = ρ_kg_m³(p, T)
     a = a_m_s(T)
-    return AtmosConditions(Hp_m, T, p, ρ, a)
+    return AtmosConditions(Hp_m, T, ΔT_K, p, ρ, a)
 end
 
 end # module
